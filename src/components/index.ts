@@ -14,3 +14,5 @@ export * from "./landing/testimonials";
 export * from "./landing/contact-page";
 export * from "./landing/about-page";
 export * from "./landing/services-page";
+export * from "./landing/faq-page";
+export * from "./landing/privacy-page";
