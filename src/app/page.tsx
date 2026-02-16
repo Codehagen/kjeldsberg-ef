@@ -9,16 +9,23 @@ import {
   Header,
   CTASection,
   Features,
-  Process
+  Process,
+  Layout
 } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
 
 // Branding from Firecrawl
 const PRIMARY_COLOR = "#F3D030";
 const ACCENT_COLOR = "#3D4459";
+
+const NAV_LINKS = [
+  { label: "Tjenester", href: "/tjenester" },
+  { label: "Om oss", href: "/om-oss" },
+  { label: "Kontakt", href: "/kontakt" },
+];
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -67,61 +74,54 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div 
-              className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg"
-              style={{ backgroundColor: PRIMARY_COLOR, color: ACCENT_COLOR }}
-            >
-              K
-            </div>
-            <span className="text-lg font-semibold text-gray-800">Kjeldsberg</span>
-          </div>
-          
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="/tjenester" className="text-sm font-medium text-gray-600 hover:text-gray-900">Tjenester</a>
-            <a href="/om-oss" className="text-sm font-medium text-gray-600 hover:text-gray-900">Om oss</a>
-            <a href="/kontakt" className="text-sm font-medium text-gray-600 hover:text-gray-900">Kontakt</a>
-            <Button 
-              style={{ backgroundColor: ACCENT_COLOR }}
-              className="text-white"
-            >
-              Kontakt oss
-            </Button>
-          </nav>
-
-          <button 
-            className="md:hidden p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-4">
-            <a href="/tjenester" className="text-gray-600">Tjenester</a>
-            <a href="/om-oss" className="text-gray-600">Om oss</a>
-            <a href="/kontakt" className="text-gray-600">Kontakt</a>
-            <Button style={{ backgroundColor: ACCENT_COLOR }} className="w-full text-white">
-              Kontakt oss
-            </Button>
-          </div>
-        )}
-      </header>
-
+    <Layout
+      headerProps={{
+        companyName: "Kjeldsberg",
+        navLinks: NAV_LINKS,
+        ctaText: "Kontakt oss",
+        ctaHref: "/kontakt",
+        primaryColor: PRIMARY_COLOR,
+        transparent: true,
+      }}
+      footerProps={{
+        companyName: "Kjeldsberg Eiendomsforvaltning",
+        description: "Vi skaper trygghet for eierne og trivsel for leietakerne.",
+        contact: {
+          phone: "45 85 90 00",
+          email: "kundeservice@kjeldsberg.no",
+          address: "Sluppenvegen 19, 7037 Trondheim"
+        },
+        primaryColor: PRIMARY_COLOR,
+        columns: [
+          {
+            title: "Tjenester",
+            links: [
+              { label: "Eiendomsforvaltning", href: "/tjenester" },
+              { label: "Energi og miljø", href: "/tjenester" },
+              { label: "Brann og sikkerhet", href: "/tjenester" },
+              { label: "Prosjektledelse", href: "/tjenester" },
+            ]
+          },
+          {
+            title: "Om oss",
+            links: [
+              { label: "Om Kjeldsberg", href: "/om-oss" },
+              { label: "Kontakt", href: "/kontakt" },
+              { label: "Ledige stillinger", href: "#" },
+            ]
+          }
+        ]
+      }}
+    >
       {/* Hero */}
       <Hero
         subtitle="Kjeldsberg Eiendomsforvaltning"
         headline="Vi skaper <span style='color:#F3D030'>trygghet</span> for eierne og <span style='color:#F3D030'>trivsel</span> for leietakerne"
         description="Totalleverandør av drift og forvaltning innen eiendom. Vi leverer skreddersydde løsninger for din eiendom."
         ctaText="Kontakt oss"
-        ctaHref="#kontakt"
+        ctaHref="/kontakt"
         ctaSecondary="Les mer om oss"
-        ctaSecondaryHref="#om-oss"
+        ctaSecondaryHref="/om-oss"
         primaryColor={PRIMARY_COLOR}
         backgroundImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
       />
@@ -183,7 +183,7 @@ export default function Home() {
                 className="inline-flex items-center gap-2 font-medium"
                 style={{ color: ACCENT_COLOR }}
               >
-                Ta kontakt med oss <ArrowRight className="w-4 h-4" />
+                Ta kontakt med oss →
               </a>
             </div>
             <div className="relative">
@@ -202,31 +202,11 @@ export default function Home() {
         title="Trenger du hjelp med eiendomsforvaltning?"
         description="Ta kontakt med oss i dag så hjelper vi deg med dine behov."
         ctaText="Kontakt oss"
-        ctaHref="#kontakt"
+        ctaHref="/kontakt"
         ctaSecondary="Les om våre tjenester"
-        ctaSecondaryHref="#tjenester"
+        ctaSecondaryHref="/tjenester"
         primaryColor={PRIMARY_COLOR}
       />
-
-      {/* Contact */}
-      <Contact
-        title="Kontakt oss"
-        contact={{
-          email: "kundeservice@kjeldsberg.no",
-          phone: "45 85 90 00",
-          address: "Sluppenvegen 19, 7037 Trondheim"
-        }}
-        primaryColor={PRIMARY_COLOR}
-      />
-
-      {/* Footer */}
-      <Footer
-        companyName="Kjeldsberg Eiendomsforvaltning"
-        primaryColor={PRIMARY_COLOR}
-        socials={[
-          { label: "LinkedIn", href: "https://www.linkedin.com/company/kjeldsberg-eiendomsforvaltning" }
-        ]}
-      />
-    </div>
+    </Layout>
   );
 }

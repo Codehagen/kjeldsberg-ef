@@ -4,6 +4,7 @@ export * from "./landing/about";
 export * from "./landing/contact";
 export * from "./landing/footer";
 export * from "./landing/header";
+export * from "./landing/layout";
 export * from "./landing/logos";
 export * from "./landing/cta";
 export * from "./landing/stats";
