@@ -3,8 +3,11 @@ export interface AboutProps {
   title?: string;
   /** Section content - can be HTML */
   content?: string;
+  /** Points list (values) */
+  points?: string[];
   /** Image URL */
   image?: string;
+  imageUrl?: string;
   /** Primary brand color */
   primaryColor?: string;
 }
@@ -12,9 +15,12 @@ export interface AboutProps {
 export function About({
   title = "Om oss",
   content = "",
+  points = [],
   image = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80",
+  imageUrl,
   primaryColor = "#2B7FFF",
 }: AboutProps) {
+  const bgImage = imageUrl || image;
   return (
     <section className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -22,15 +28,25 @@ export function About({
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-6">{title}</h2>
             <div 
-              className="text-lg text-[#6B7280] leading-relaxed"
+              className="text-lg text-[#6B7280] leading-relaxed mb-6"
               dangerouslySetInnerHTML={{ __html: content }}
             />
+            {points && points.length > 0 && (
+              <ul className="space-y-3">
+                {points.map((point, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor }} />
+                    <span className="text-gray-700">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br rounded-2xl opacity-0 lg:opacity-100" style={{ backgroundColor: `${primaryColor}20` }} />
             <img 
-              src={image} 
+              src={bgImage} 
               alt={title}
               className="rounded-2xl shadow-xl w-full h-auto"
             />

@@ -20,6 +20,10 @@ export interface HeaderProps {
   ctaText?: string;
   /** CTA button link */
   ctaHref?: string;
+  /** Transparent header (for hero) */
+  transparent?: boolean;
+  /** Current pathname */
+  pathname?: string;
   /** Primary brand color */
   primaryColor?: string;
 }
@@ -30,6 +34,8 @@ export function Header({
   navLinks = [],
   ctaText = "Kontakt oss",
   ctaHref = "#contact",
+  transparent = false,
+  pathname = "",
   primaryColor = "#2B7FFF",
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

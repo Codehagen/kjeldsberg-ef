@@ -1,20 +1,25 @@
 import { ChevronDown, ArrowRight } from "lucide-react";
 
 export interface HeroProps {
+  /** Main headline (or title) */
+  title?: string;
+  headline?: string;
   /** Company name or tagline */
   subtitle?: string;
-  /** Main headline */
-  headline: string;
   /** Description text */
   description?: string;
-  /** CTA button text */
+  /** CTA button text (or primaryCta) */
   ctaText?: string;
-  /** CTA button link */
+  primaryCta?: string;
+  /** CTA button link (or primaryCtaHref) */
   ctaHref?: string;
-  /** Secondary CTA text */
+  primaryCtaHref?: string;
+  /** Secondary CTA text (or secondaryCta) */
   ctaSecondary?: string;
-  /** Secondary CTA link */
+  secondaryCta?: string;
+  /** Secondary CTA link (or secondaryCtaHref) */
   ctaSecondaryHref?: string;
+  secondaryCtaHref?: string;
   /** Background image URL */
   backgroundImage?: string;
   /** Primary brand color */
@@ -22,16 +27,27 @@ export interface HeroProps {
 }
 
 export function Hero({
-  subtitle = "",
+  title,
   headline,
+  subtitle = "",
   description = "",
-  ctaText = "Kontakt oss",
-  ctaHref = "#contact",
-  ctaSecondary = "Les mer",
-  ctaSecondaryHref = "#more",
+  ctaText: ctaTextProp,
+  primaryCta,
+  ctaHref: ctaHrefProp,
+  primaryCtaHref,
+  ctaSecondary: ctaSecondaryProp,
+  secondaryCta,
+  ctaSecondaryHref,
+  secondaryCtaHref: secondaryCtaHrefAlt,
   backgroundImage = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920&q=80",
   primaryColor = "#2B7FFF",
 }: HeroProps) {
+  // Support both naming conventions
+  const mainTitle = title || headline || "";
+  const mainCtaText = ctaTextProp || primaryCta || "Kontakt oss";
+  const mainCtaHref = ctaHrefProp || primaryCtaHref || "#contact";
+  const secCtaTxt = ctaSecondaryProp || secondaryCta || "Les mer";
+  const secCtaUrl = ctaSecondaryHref || secondaryCtaHrefAlt || "#more";
   return (
     <section className="relative min-h-screen flex items-center justify-center">
       <div 
@@ -52,7 +68,7 @@ export function Hero({
         <h1 
           className="hero-fade-up text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight mb-6"
           style={{ animationDelay: "250ms" }}
-          dangerouslySetInnerHTML={{ __html: headline }}
+          dangerouslySetInnerHTML={{ __html: mainTitle }}
         />
         
         {description && (
@@ -69,27 +85,27 @@ export function Hero({
           style={{ animationDelay: "550ms" }}
         >
           <a
-            href={ctaHref}
+            href={mainCtaHref}
             className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium tracking-wide hover:opacity-90 active:scale-[0.97] transition-all duration-150"
             style={{ backgroundColor: primaryColor, color: "#fff" }}
           >
-            {ctaText}
+            {mainCtaText}
             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
           
-          {ctaSecondary && (
+          {secCtaTxt && (
             <a
-              href={ctaSecondaryHref}
+              href={secCtaUrl}
               className="inline-flex items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-150 bg-transparent"
             >
-              {ctaSecondary}
+              {secCtaTxt}
             </a>
           )}
         </div>
       </div>
 
       <a 
-        href={ctaHref}
+        href={mainCtaHref}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 hover:text-white transition-colors"
         aria-label="Scroll ned"
       >

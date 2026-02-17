@@ -1,6 +1,19 @@
 export interface FooterProps {
   /** Company name */
   companyName?: string;
+  /** Description */
+  description?: string;
+  /** Contact info */
+  contact?: {
+    email?: string;
+    phone?: string;
+    address?: string;
+  };
+  /** Footer columns */
+  columns?: {
+    title: string;
+    links: { label: string; href: string }[];
+  }[];
   /** Copyright text */
   copyright?: string;
   /** Social links */
@@ -14,6 +27,9 @@ export interface FooterProps {
 
 export function Footer({
   companyName = "Bedrift",
+  description = "",
+  contact = {},
+  columns = [],
   copyright = "",
   socials = [],
   primaryColor = "#2B7FFF",
